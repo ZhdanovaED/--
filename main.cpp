@@ -47,6 +47,41 @@ void make_histogram(const vector<double>& numbers, double max, double min, size_
 
 
 
+void
+svg_begin(double width, double height) {
+    cout << "<?xml version='1.0' encoding='UTF-8'?>\n";
+    cout << "<svg ";
+    cout << "width='" << width << "' ";
+    cout << "height='" << height << "' ";
+    cout << "viewBox='0 0 " << width << " " << height << "' ";
+    cout << "xmlns='http://www.w3.org/2000/svg'>\n";
+}
+
+void
+svg_end() {
+    cout << "</svg>\n";
+}
+
+
+
+
+void
+svg_text(double left, double baseline, string text) {
+    cout << "<text x='" << left << "' y='"<<baseline <<"'>" <<text<<"</text>";
+
+}
+
+void svg_rect(double x, double y, double width, double height)
+{
+    cout<<"<text x='" << x << "' y='"<<y <<"' width='" <<width <<"' height='" <<height <<"'></text>";
+}
+void
+show_histogram_svg(const vector<size_t>& bins) {
+    svg_begin(400, 300);
+    svg_text(20, 20, to_string(bins[0]));
+    svg_end();
+}
+
 
 
 void show_histogram_text(vector <size_t>& bins)
@@ -133,10 +168,10 @@ int main()
     double min, max;
     find_minmax(numbers, min, max);
     make_histogram ( numbers, max, min, bin_count, bins );
-    show_histogram_text (bins);
 
 
-
+show_histogram_svg(bins);
+svg_rect(50,0,bins[0]*10,30);
     return 0;
 
 }
